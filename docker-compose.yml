@@ -1,12 +1,13 @@
 version: "3.9"
 services:
+    web:
+        build: web
+        restart: on-failure
     api:
         build: api
         restart: on-failure
         links:
             - mongodb
-        ports:
-            - "80:80"
     mongodb:
         image: mongo
         restart: on-failure
@@ -14,3 +15,11 @@ services:
         build: ./mongo-seed
         links:
             - mongodb
+    gateway:
+        build: gateway
+        restart: on-failure
+        ports: 
+            - "80:80"
+        links:
+            - web
+            - api
