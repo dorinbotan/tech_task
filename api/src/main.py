@@ -26,8 +26,10 @@ async def titles(title_class: Optional[str] = None, _sort: Optional[str] = None,
 
     skip = _page * _limit
 
+    collation = {"numericOrdering": True, "locale": "en_US"}
+
     titles = []
-    async for title in titles_collection.find(filter, {"_id": 0, "content": 0}).sort(sort).skip(skip).limit(_limit):
+    async for title in titles_collection.find(filter, {"_id": 0, "content": 0}).sort(sort).collation(collation).skip(skip).limit(_limit):
         titles.append(title)
 
     return titles
