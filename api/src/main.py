@@ -1,5 +1,5 @@
 from .db import titles_collection
-from fastapi import FastAPI, Response, status
+from fastapi import FastAPI, Path, Response, status
 from typing import Optional
 
 api = FastAPI()
@@ -14,4 +14,14 @@ async def titles(title_class: Optional[str] = None, _sort: Optional[str] = None,
 
 @api.get("/api/titles/{id}")
 async def titles(id: int, response: Response):
-    return None
+    if (id < 0):
+        response.status_code = status.HTTP_400_BAD_REQUEST
+        return
+        
+    title = await titles_collection.find_one({ "id": str(id) }, {"_id": 0})
+
+    if title is not None:
+        return title
+    else:
+        response.status_code = status.HTTP_404_NOT_FOUND
+        return

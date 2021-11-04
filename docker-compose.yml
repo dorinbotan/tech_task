@@ -9,8 +9,6 @@ services:
             - "80:80"
     mongodb:
         image: mongo
-        # ports:
-            # - "27017:27017"
         restart: on-failure
     mongo-seed:
         build: ./mongo-seed
