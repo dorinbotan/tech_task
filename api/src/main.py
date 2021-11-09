@@ -6,10 +6,9 @@ api = FastAPI()
 
 @api.get("/api/titles")
 async def titles(title_class: Optional[str] = None, _sort: Optional[str] = None, _order: Optional[str] = None, _page: Optional[int] = 0, _limit: Optional[int] = 100):
-    # TODO: ignore case
     # Filter values by title_class
     if title_class is not None:
-        filter = { "title_class": title_class }
+        filter = { "title_class": title_class.capitalize() }
     else:
         filter = {}
 
