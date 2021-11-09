@@ -16,7 +16,7 @@ def test_get_titles():
         assert "content" not in response_body[i]
 
 def test_get_titles_by_class():
-    response = requests.get(relative_url("/api/titles?title_class=Freehold"))
+    response = requests.get(relative_url("/api/titles?title_class=freehold"))
     assert response.status_code == 200
 
     response_body = response.json()
